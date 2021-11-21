@@ -1,5 +1,6 @@
 package io.github.kimmking.gateway.inbound;
 
+import com.shinubi.week03.homework03.BizFilter;
 import io.github.kimmking.gateway.filter.HeaderHttpRequestFilter;
 import io.github.kimmking.gateway.filter.HttpRequestFilter;
 import io.github.kimmking.gateway.outbound.httpclient4.HttpOutboundHandler;
@@ -17,7 +18,7 @@ public class HttpInboundHandler extends ChannelInboundHandlerAdapter {
     private static Logger logger = LoggerFactory.getLogger(HttpInboundHandler.class);
     private final List<String> proxyServer;
     private HttpOutboundHandler handler;
-    private HttpRequestFilter filter = new HeaderHttpRequestFilter();
+    private HttpRequestFilter filter = new BizFilter();
     
     public HttpInboundHandler(List<String> proxyServer) {
         this.proxyServer = proxyServer;
