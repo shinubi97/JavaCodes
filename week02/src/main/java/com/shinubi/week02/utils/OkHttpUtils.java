@@ -1,4 +1,4 @@
-package com.shinubi.week03.homework02;
+package com.shinubi.week02.utils;
 
 import okhttp3.*;
 import okhttp3.Request.Builder;

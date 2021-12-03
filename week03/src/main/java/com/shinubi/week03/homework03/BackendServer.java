@@ -11,7 +11,8 @@ import java.util.concurrent.Executors;
 public class BackendServer {
 
     private static final int PORT = 8808;
-    public static void main(String[] args) throws IOException{
+
+    public static void main(String[] args) throws IOException {
         ExecutorService executorService = Executors.newFixedThreadPool(
                 Runtime.getRuntime().availableProcessors() * 4);
         final ServerSocket serverSocket = new ServerSocket(PORT);
@@ -24,7 +25,7 @@ public class BackendServer {
             }
         }
     }
-    
+
     private static void service(Socket socket) {
         try {
             PrintWriter printWriter = new PrintWriter(socket.getOutputStream(), true);

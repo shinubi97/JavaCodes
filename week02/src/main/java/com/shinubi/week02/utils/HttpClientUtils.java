@@ -1,6 +1,5 @@
-package com.shinubi.week03.homework02;
+package com.shinubi.week02.utils;
 
-import io.netty.handler.codec.http.HttpHeaders;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
@@ -12,7 +11,6 @@ import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
 
 import java.io.IOException;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.Objects;
 
@@ -32,19 +30,9 @@ public class HttpClientUtils {
 
 
     //GET
-    public static String getAsString(String url, HttpHeaders headers) {
+    public static String getAsString(String url) {
         HttpGet httpGet = new HttpGet(url);
-
-        //添加请求头
-        if (headers != null && !headers.isEmpty()) {
-            Iterator<Map.Entry<String, String>> iterator = headers.entries().iterator();
-            while (iterator.hasNext()) {
-                Map.Entry<String, String> value = iterator.next();
-                httpGet.addHeader(value.getKey(), value.getValue());
-            }
-        }
         CloseableHttpResponse response = null;
-
         try {
             response = HTTP_CLIENT.execute(httpGet);
 //            System.out.println(response.getStatusLine());
@@ -104,8 +92,8 @@ public class HttpClientUtils {
     }
 
     public static void main(String[] args) {
-        String url = "http://localhost:8808";
-        String response = HttpClientUtils.getAsString(url, null);
+        String url = "http://localhost:8801";
+        String response = HttpClientUtils.getAsString(url);
         System.out.println(response);
     }
 }

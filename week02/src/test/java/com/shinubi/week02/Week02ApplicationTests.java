@@ -1,10 +1,10 @@
-package com.shinubi.week03;
+package com.shinubi.week02;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class Week03ApplicationTests {
+class Week02ApplicationTests {
 
     @Test
     void contextLoads() {

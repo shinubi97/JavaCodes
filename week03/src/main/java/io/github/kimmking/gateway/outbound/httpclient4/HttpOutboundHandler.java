@@ -29,7 +29,7 @@ import static io.netty.handler.codec.http.HttpVersion.HTTP_1_1;
  * 整合HttpClient的处理器
  */
 public class HttpOutboundHandler {
-    
+
     private ExecutorService proxyService;
     private List<String> backendUrls;
 
@@ -47,7 +47,7 @@ public class HttpOutboundHandler {
         proxyService = new ThreadPoolExecutor(cores, cores,
                 keepAliveTime, TimeUnit.MILLISECONDS, new ArrayBlockingQueue<>(queueSize),
                 new NamedThreadFactory("proxyService"), handler);
-        
+
         IOReactorConfig ioConfig = IOReactorConfig.custom()
                 .setConnectTimeout(1000)
                 .setSoTimeout(1000)
@@ -58,16 +58,16 @@ public class HttpOutboundHandler {
     }
 
     private String formatUrl(String backend) {
-        return backend.endsWith("/")?backend.substring(0,backend.length()-1):backend;
+        return backend.endsWith("/") ? backend.substring(0, backend.length() - 1) : backend;
     }
-    
+
     public void handle(final FullHttpRequest fullRequest, final ChannelHandlerContext ctx, HttpRequestFilter filter) {
         String backendUrl = router.route(this.backendUrls);
         final String url = backendUrl + fullRequest.uri();
         filter.filter(fullRequest, ctx);
-        proxyService.submit(()->fetchGet(fullRequest, ctx, url));
+        proxyService.submit(() -> fetchGet(fullRequest, ctx, url));
     }
-    
+
     private void fetchGet(final FullHttpRequest inbound, final ChannelHandlerContext ctx, final String url) {
         HttpHeaders headers = inbound.headers();
         String body = HttpClientUtils.getAsString(url, headers);
@@ -76,7 +76,7 @@ public class HttpOutboundHandler {
             bodyBytes = body.getBytes("UTF-8");
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
-            System.out.println("fetchGet() error: "+e.getMessage());
+            System.out.println("fetchGet() error: " + e.getMessage());
         }
         handleResponse(inbound, ctx, bodyBytes);
     }
@@ -138,13 +138,13 @@ public class HttpOutboundHandler {
             ctx.flush();
             //ctx.close();
         }
-        
+
     }
-    
+
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
         cause.printStackTrace();
         ctx.close();
     }
-    
-    
+
+
 }

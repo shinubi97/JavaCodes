@@ -20,11 +20,11 @@ import java.util.List;
 public class HttpInboundServer {
 
     private int port;
-    
+
     private List<String> proxyServers;
 
     public HttpInboundServer(int port, List<String> proxyServers) {
-        this.port=port;
+        this.port = port;
         this.proxyServers = proxyServers;
     }
 

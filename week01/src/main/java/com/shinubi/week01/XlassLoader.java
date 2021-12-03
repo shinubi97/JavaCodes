@@ -48,7 +48,7 @@ public class XlassLoader extends ClassLoader {
             data = byteArrayOutputStream.toByteArray();
         } catch (IOException e) {
             e.printStackTrace();
-        }finally {
+        } finally {
             if (inputStream != null) {
                 try {
                     inputStream.close();
@@ -66,11 +66,12 @@ public class XlassLoader extends ClassLoader {
         }
         //对读取到的数据进行解码
         decode(data);
-        return defineClass(name,data,0,data.length);
+        return defineClass(name, data, 0, data.length);
     }
 
     /**
      * 解码
+     *
      * @param data
      */
     private void decode(byte[] data) {

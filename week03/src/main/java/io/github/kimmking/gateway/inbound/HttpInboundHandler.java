@@ -19,12 +19,12 @@ public class HttpInboundHandler extends ChannelInboundHandlerAdapter {
     private final List<String> proxyServer;
     private HttpOutboundHandler handler;
     private HttpRequestFilter filter = new BizFilter();
-    
+
     public HttpInboundHandler(List<String> proxyServer) {
         this.proxyServer = proxyServer;
         this.handler = new HttpOutboundHandler(this.proxyServer);
     }
-    
+
     @Override
     public void channelReadComplete(ChannelHandlerContext ctx) {
         ctx.flush();
@@ -40,10 +40,10 @@ public class HttpInboundHandler extends ChannelInboundHandlerAdapter {
 //            if (uri.contains("/test")) {
 //                handlerTest(fullRequest, ctx);
 //            }
-    
+
             handler.handle(fullRequest, ctx, filter);
-    
-        } catch(Exception e) {
+
+        } catch (Exception e) {
             e.printStackTrace();
         } finally {
             ReferenceCountUtil.release(msg);
